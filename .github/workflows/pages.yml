@@ -19,6 +19,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Bundle PeerJS locally
+        run: |
+          npm pack peerjs@1.5.5 --silent
+          tar -xzf peerjs-1.5.5.tgz package/dist/peerjs.min.js
+          cp package/dist/peerjs.min.js ./peerjs.min.js
+          rm -rf package peerjs-1.5.5.tgz
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
