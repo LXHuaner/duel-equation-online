@@ -453,7 +453,7 @@ function loadPeer(){
  if(typeof window.Peer==='function')return Promise.resolve(true);
  if(loadingPeer)return loadingPeer;
  const sources=['./peerjs.min.js','https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js','https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js','https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.5/peerjs.min.js'];
- loadingPeer=(async()=>{for(const src of sources){say('正在加载联机组件：'+new URL(src).hostname);const ok=await new Promise(resolve=>{const tag=document.createElement('script');tag.src=src;tag.async=true;let done=false;const timer=setTimeout(()=>finish(false),6500);function finish(v){if(done)return;done=true;clearTimeout(timer);if(!v)tag.remove();resolve(v)}tag.onload=()=>finish(typeof window.Peer==='function');tag.onerror=()=>finish(false);document.head.appendChild(tag)});if(ok)return true}return false})().finally(()=>loadingPeer=null);
+ loadingPeer=(async()=>{for(const src of sources){say('正在加载联机组件：'+new URL(src,location.href).hostname);const ok=await new Promise(resolve=>{const tag=document.createElement('script');tag.src=src;tag.async=true;let done=false;const timer=setTimeout(()=>finish(false),6500);function finish(v){if(done)return;done=true;clearTimeout(timer);if(!v)tag.remove();resolve(v)}tag.onload=()=>finish(typeof window.Peer==='function');tag.onerror=()=>finish(false);document.head.appendChild(tag)});if(ok)return true}return false})().finally(()=>loadingPeer=null);
  return loadingPeer;
 }
 window.addEventListener('error',e=>{if(panel.style.display==='flex')say('程序错误：'+(e.message||'未知错误'))});
